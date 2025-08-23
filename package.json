@@ -1,0 +1,18 @@
+{
+	"type": "module",
+	"scripts": {
+		"dev": "tsx --watch ./src/index.ts"
+	},
+	"dependencies": {
+		"dotenv": "^17.2.1",
+		"drizzle-orm": "^0.44.4",
+		"postgres": "^3.4.7",
+		"telegraf": "^4.16.3",
+		"tsx": "^4.20.4",
+		"typescript": "^5.9.2"
+	},
+	"devDependencies": {
+		"@types/node": "^24.3.0",
+		"drizzle-kit": "^0.31.4"
+	}
+}
