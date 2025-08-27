@@ -1,9 +1,10 @@
 import { Context } from 'telegraf';
-import { FatalError, ValidateError } from './error';
-import { menuAction } from '../helpers';
+import { FatalError, ValidateError } from './errors';
+import { menuAction } from '../controllers/base/action';
+import { WizardContext } from 'telegraf/typings/scenes';
 
-function asyncWrapper(fn: Function) {
-	return (ctx: Context, next: Function) => {
+function asyncWrapper<T extends Context>(fn: (ctx: T, next: () => Promise<void>) => Promise<any>) {
+	return (ctx: T, next: () => Promise<void>) => {
 		(async () => {
 			return fn(ctx, next)?.catch(async e => {
 				console.log(e);
@@ -29,7 +30,8 @@ function asyncWrapper(fn: Function) {
 					else await ctx.reply(errMsg);
 				}
 
-				return next();
+				if (e.withoutNext) return;
+				else return next();
 			});
 		})();
 	};

@@ -1,9 +1,11 @@
 {
 	"type": "module",
 	"scripts": {
-		"dev": "tsx --watch ./src/index.ts"
+		"dev": "tsx --watch ./src/index.ts",
+		"migrate": "npx drizzle-kit generate && npx drizzle-kit migrate"
 	},
 	"dependencies": {
+		"dayjs": "^1.11.13",
 		"dotenv": "^17.2.1",
 		"drizzle-orm": "^0.44.4",
 		"postgres": "^3.4.7",

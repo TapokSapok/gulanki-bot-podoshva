@@ -5,19 +5,20 @@ export enum Role {
 	Default = 'default',
 }
 
-export const roleEnum = t.pgEnum('role', [Role.Admin, Role.Default]);
-
 export const userT = t.pgTable('user', {
-	_id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
+	id: t.integer().primaryKey().generatedAlwaysAsIdentity(),
 
-	tg_id: t.integer().unique().notNull(),
+	tg_id: t.bigint({ mode: 'number' }).unique().notNull(),
 	username: t.varchar({ length: 32 }).unique(),
 	firstName: t.varchar('first_name', { length: 64 }),
 	karma: t.integer().notNull().default(0),
-	role: roleEnum().default(Role.Default).notNull(),
+	role: t.varchar({ length: 32 }).$type<Role>().default(Role.Default).notNull(),
+	isBanned: t.boolean().notNull().default(false),
 
 	createdAt: t
-		.time('created_at')
+		.timestamp('created_at')
 		.notNull()
-		.$defaultFn(() => new Date().toISOString()),
+		.$defaultFn(() => new Date()),
 });
+
+export type UserType = typeof userT.$inferSelect;
