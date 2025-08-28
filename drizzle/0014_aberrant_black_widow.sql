@@ -1,0 +1,1 @@
+ALTER TABLE "event" ALTER COLUMN "location" DROP NOT NULL;

@@ -16,7 +16,7 @@ export default async function authMiddleware(ctx: Context, next: Function) {
 		}
 
 		if (user.isBanned) {
-			return await ctx.reply('🚫 Ты забанен, соси жирный член');
+			// return await ctx.reply('🚫 Ты забанен, соси жирный член');
 		}
 
 		if (!profile) {

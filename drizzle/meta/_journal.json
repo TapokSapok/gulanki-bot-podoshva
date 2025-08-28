@@ -57,6 +57,55 @@
       "when": 1756261731792,
       "tag": "0007_fluffy_the_hand",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1756367048761,
+      "tag": "0008_rapid_silk_fever",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1756367988443,
+      "tag": "0009_overjoyed_hitman",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1756371907658,
+      "tag": "0010_harsh_morbius",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1756376787768,
+      "tag": "0011_optimal_big_bertha",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1756381041238,
+      "tag": "0012_dizzy_puma",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1756384947139,
+      "tag": "0013_early_whizzer",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1756386920943,
+      "tag": "0014_aberrant_black_widow",
+      "breakpoints": true
     }
   ]
 }

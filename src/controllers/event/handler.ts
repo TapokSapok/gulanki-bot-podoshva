@@ -1,7 +1,7 @@
 import { bot } from '../../bot';
 import { Scene } from '../../types/enums';
 import asyncWrapper from '../../utils/async-wrapper';
-import { approveEventAction, rejectEventAction } from './action';
+import { approveEventAction, eventRequestAction, eventRequestAnswerAction, rejectEventAction } from './action';
 
 bot.action(
 	/^create_event/,
@@ -16,4 +16,14 @@ bot.action(
 bot.action(
 	/^reject_event/,
 	asyncWrapper(async ctx => await rejectEventAction(ctx))
+);
+
+bot.action(
+	/^event_request_answer/,
+	asyncWrapper(async ctx => await eventRequestAnswerAction(ctx))
+);
+
+bot.action(
+	/^event_request/,
+	asyncWrapper(async ctx => await eventRequestAction(ctx))
 );

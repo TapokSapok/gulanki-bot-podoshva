@@ -1,9 +1,15 @@
+import dayjs from 'dayjs';
 import { Context } from 'telegraf';
 import { WizardContext } from 'telegraf/typings/scenes';
 
 export const errEmoji = '🚫';
-
 export const BACK_TEXT = '‹ Назад';
+
+export const cancelButton = [{ text: '× Отменить', callback_data: 'CANCEL_WIZARD' }];
+
+export function formatDate(date: Date) {
+	return dayjs(date).format(`D MMMM, HH:mm`);
+}
 
 export function parseArgs(ctx: Context<any> | WizardContext) {
 	if (!ctx?.update?.callback_query?.data) return [];

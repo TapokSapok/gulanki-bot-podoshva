@@ -17,13 +17,17 @@ export const eventT = t.pgTable('event', {
 	publicChannelId: t.bigint({ mode: 'number' }).notNull(),
 	moderateChannelId: t.bigint({ mode: 'number' }).notNull(),
 
+	publicMessageId: t.bigint({ mode: 'number' }),
+	publicChannelUsername: t.varchar({ length: 32 }),
+
 	isApproved: t.boolean().notNull().default(false),
 	isRejected: t.boolean().notNull().default(false),
 
-	isUsernameHide: t.boolean().notNull(),
-	isPhotoHide: t.boolean().notNull(),
-
 	description: t.varchar({ length: 256 }).notNull(),
+	zone: t.varchar({ length: 16 }).notNull(),
+	responses: t.integer().notNull().default(0),
+	location: t.varchar({ length: 32 }),
+
 	eventDate: t.timestamp().notNull(),
 
 	createdAt: t

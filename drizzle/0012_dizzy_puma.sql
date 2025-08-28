@@ -1,0 +1,1 @@
+ALTER TABLE "event" ADD COLUMN "responses" integer DEFAULT 0 NOT NULL;

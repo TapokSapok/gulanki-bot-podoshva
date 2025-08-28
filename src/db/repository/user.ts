@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import db from '../db';
 import { profileT } from '../schema/profile';
-import { userT } from '../schema/user';
+import { userT, UserType } from '../schema/user';
 
 export async function getUserByTgIdWithProfile(tgId: number): Promise<{
 	user: typeof userT.$inferSelect | null;
@@ -29,5 +29,10 @@ export async function getUserByTgId(tgId: number) {
 
 export async function createUser(data: typeof userT.$inferInsert) {
 	const [result] = await db.insert(userT).values(data).returning();
+	return result;
+}
+
+export async function updateUser(id: number, data: Partial<UserType>) {
+	const [result] = await db.update(userT).set(data).where(eq(userT.id, id)).returning();
 	return result;
 }

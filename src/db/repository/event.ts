@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import db from '../db';
 import { eventT, EventType } from '../schema/event';
 import { userT } from '../schema/user';
@@ -16,6 +16,14 @@ export async function getEventById(id: number) {
 		.leftJoin(userT, eq(eventT.userId, userT.id))
 		.leftJoin(profileT, eq(eventT.profileId, profileT.id))
 		.where(eq(eventT.id, id));
+	return res;
+}
+
+export async function getEventByUserIdWithNotModerated(userId: number) {
+	const [res] = await db
+		.select()
+		.from(eventT)
+		.where(and(eq(eventT.userId, userId), eq(eventT.isApproved, false), eq(eventT.isRejected, false)));
 	return res;
 }
 
