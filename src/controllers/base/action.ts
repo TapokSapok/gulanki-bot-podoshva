@@ -7,6 +7,10 @@ import { getUserByTgId, getUserByTgIdWithProfile } from '../../db/repository/use
 export async function menuAction(ctx: Context) {
 	try {
 		const { type, value } = JSON.parse(atob(ctx.payload));
+
+		//adm
+		const actionUser = await getUserByTgId(ctx.from!.id);
+		if (actionUser.role !== 'admin') return await ctx.answerCbQuery(`${errEmoji} Нет доступа к этому функционалу`);
 		if (type === 'event_request' && !Number.isNaN(value)) {
 			const { event, profile, user } = await getEventById(value);
 			if (!event || !profile || !user) {

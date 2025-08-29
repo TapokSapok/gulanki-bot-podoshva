@@ -8,8 +8,3 @@ export const cities = {
 	tumen: 'Тюмень',
 	kazan: 'Казань',
 };
-
-// export enum City {
-// 	kurgan = 'Курган',
-// 	tumen = 'Тюмень',
-// }
