@@ -10,7 +10,7 @@ export async function checkModerMiddleware(ctx: Context, next: Function) {
 
 	const user = await getUserByTgId(tgUserId);
 	if (!user) throw new FatalError('Пользователь не найден');
-	if (user.role !== Role.Moderator && user.role !== Role.Admin) throw new FatalError('Нет доступа к этому функционалу', true, true);
+	if (user.role !== Role.Moderator && user.role !== Role.Admin) throw new FatalError('Нет доступа к этому функционалу', true);
 
 	return next();
 }

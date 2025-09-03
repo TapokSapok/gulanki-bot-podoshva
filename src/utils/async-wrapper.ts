@@ -13,14 +13,14 @@ function asyncWrapper<T extends Context>(fn: (ctx: T, next: () => Promise<void>)
 					await ctx.reply(e.message || errMsg);
 					if (e.skip) {
 						await ctx.scene.leave();
-						await menuAction(ctx);
+						await menuAction(ctx, true);
 					}
 				} else if (e instanceof FatalError) {
 					const errMsg = 'Фатальная ошибка';
 					await ctx.reply(e.message || errMsg);
 					if (e.skip) {
 						await ctx.scene.leave();
-						await menuAction(ctx);
+						await menuAction(ctx, true);
 					}
 				} else {
 					const errMsg = 'Упс, произошла неизвестная ошибка';
