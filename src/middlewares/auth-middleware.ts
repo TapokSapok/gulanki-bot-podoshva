@@ -7,7 +7,7 @@ export default async function authMiddleware(ctx: Context, next: Function) {
 	if (!ctx.from) return next();
 
 	try {
-		if (!ctx.from.username) throw new FatalError('Что бы пользоваться ботом, нужно указать телеграм тег!', true, true);
+		if (!ctx.from.username) return await ctx.reply('Что бы пользоваться ботом, нужно указать телеграм тег!');
 
 		let { user, profile } = await getUserByTgIdWithProfile(ctx.from.id);
 
