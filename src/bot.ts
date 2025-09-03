@@ -16,7 +16,6 @@ bot.telegram.setMyCommands([{ command: 'start', description: 'Меню' }]);
 const stage = new Scenes.Stage<Scenes.SceneContext>([createProfileScene, createEventScene, editMyProfileScene]);
 
 bot.use(parseArgsMiddleware);
-bot.use(authMiddleware);
 
 stage.action(
 	/^CANCEL_WIZARD/,
@@ -33,15 +32,16 @@ stage.action(
 	})
 );
 
+bot.use(session());
+bot.use(stage.middleware());
+bot.use(authMiddleware);
+
 stage.start(
 	asyncWrapper(async ctx => {
 		ctx.scene.leave();
 		await menuAction(ctx);
 	})
 );
-
-bot.use(session());
-bot.use(stage.middleware());
 
 import('./controllers/base/handler');
 import('./controllers/profile/handler');
