@@ -1,7 +1,9 @@
 {
-	"type": "module",
+	"type": "commonjs",
 	"scripts": {
 		"dev": "tsx --watch ./src/index.ts",
+		"build": "tsc --build",
+		"start": "node ./dist/index.js",
 		"migrate": "npx drizzle-kit generate && npx drizzle-kit migrate"
 	},
 	"dependencies": {

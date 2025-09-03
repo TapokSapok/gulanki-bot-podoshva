@@ -76,7 +76,10 @@ export async function eventRequestAnswerAction(ctx: Context) {
 
 	const [_, eventId, userId, isApproved] = ctx.args;
 
-	let { eventRequest, profile, user } = await getEventRequest(userId as number, eventId as number);
+	const evtReq = await getEventRequest(userId as number, eventId as number);
+	if (!evtReq) return await ctx.reply(`${errEmoji} Запрос не найден`);
+
+	let { eventRequest, profile, user } = evtReq;
 	if (!eventRequest || !profile || !user) return await ctx.reply(`${errEmoji} Событие/запрос/пользователь/профиль не найдены`);
 
 	const event = await getEventById(eventRequest.eventId);
