@@ -16,6 +16,7 @@ bot.telegram.setMyCommands([{ command: 'start', description: 'Меню' }]);
 const stage = new Scenes.Stage<Scenes.SceneContext>([createProfileScene, createEventScene, editMyProfileScene]);
 
 bot.use(parseArgsMiddleware);
+bot.use(authMiddleware);
 
 stage.action(
 	/^CANCEL_WIZARD/,
@@ -41,7 +42,6 @@ stage.start(
 
 bot.use(session());
 bot.use(stage.middleware());
-bot.use(authMiddleware);
 
 import('./controllers/base/handler');
 import('./controllers/profile/handler');
