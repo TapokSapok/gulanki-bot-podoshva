@@ -97,6 +97,6 @@ export function eventRequestText(event: EventType, profile: ProfileType, user: U
 	return `💫 Вам пришел отклик на <a href="https://t.me/${event.publicChannelUsername}/${event.publicMessageId}">событие</a>.\n\n👤 ${profile.name}, ${profile.age}, ${
 		profile.city
 	}\n🩸 Карма - ${user.karma}\n\n${eventRequest?.isApproved ? `✅ Одобрен - @${eventRequestUser?.username}\n` : eventRequest?.isRejected ? '❌ Отклонен' : ''}${
-		!event.location && eventRequest?.isApproved ? `<i>* Локация события не указана, сообщите её @${eventRequestUser?.username}</i>` : ''
+		!event.location && eventRequest?.isApproved ? `\n<i>* Локация события не указана, сообщите её @${eventRequestUser?.username}</i>` : ''
 	}`;
 }

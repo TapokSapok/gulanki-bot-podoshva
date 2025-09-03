@@ -28,7 +28,18 @@ export async function myProfileMessage(ctx: Context, user: UserType, profile: Pr
 	return await ctx.reply('Выбери действие:', {
 		parse_mode: 'HTML',
 		reply_markup: {
-			inline_keyboard: [[{ text: '✏️ Редактировать профиль', callback_data: 'edit_profile' }], [{ text: BACK_TEXT, callback_data: 'menu' }]],
+			inline_keyboard: [
+				[
+					{ text: '👤 Изменить - Имя', callback_data: 'edit_my_profile:name' },
+					{ text: '🏮 Изменить - Возраст', callback_data: 'edit_my_profile:age' },
+				],
+				[
+					{ text: '🌍 Изменить - Город', callback_data: 'edit_my_profile:city' },
+					{ text: '✍️ Изменить - О себе', callback_data: 'edit_my_profile:aboutMe' },
+				],
+				[{ text: '📸 Изменить - Фотографии', callback_data: 'edit_my_profile:photo' }],
+				[{ text: BACK_TEXT, callback_data: 'menu' }],
+			],
 		},
 	});
 }

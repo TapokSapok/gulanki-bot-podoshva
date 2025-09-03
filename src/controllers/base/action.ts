@@ -3,20 +3,29 @@ import { menuMessage, moderateProfileText } from './message';
 import { getEventById } from '../../db/repository/event';
 import { errEmoji } from '../../utils';
 import { getUserByTgId, getUserByTgIdWithProfile } from '../../db/repository/user';
+import { getEventRequest } from '../../db/repository/event-request';
 
-export async function menuAction(ctx: Context) {
+export async function menuAction(ctx: Context, isReply: boolean = false) {
+	if (ctx.callbackQuery) await ctx.answerCbQuery();
+
 	try {
 		const { type, value } = JSON.parse(atob(ctx.payload));
 
-		//adm
-		const actionUser = await getUserByTgId(ctx.from!.id);
-		if (actionUser.role !== 'admin') return await ctx.answerCbQuery(`${errEmoji} Нет доступа к этому функционалу`);
 		if (type === 'event_request' && !Number.isNaN(value)) {
 			const { event, profile, user } = await getEventById(value);
 			if (!event || !profile || !user) {
 				await ctx.reply(`${errEmoji} Событие/пользователь/профиль не найдены`);
-				return menuMessage(ctx);
+				return menuAction(ctx);
 			}
+
+			const requestUser = await getUserByTgId(ctx.from!.id);
+			if (!requestUser) return await ctx.reply(`${errEmoji} Пользователь не найден`);
+
+			if (requestUser.tg_id === user.tg_id) return await ctx.reply(`${errEmoji} Нельзя отправить запрос самому себе`);
+
+			const evtReq = await getEventRequest(requestUser.id, event.id);
+			console.log(evtReq);
+			if (evtReq) return await ctx.reply(`${errEmoji} Вы уже отправляли запрос на это событие`);
 
 			return await ctx.reply(
 				`💫 Отправить запрос создателю <a href="https://t.me/${event.publicChannelUsername}/${event.publicMessageId}">события</a>?\n\n<i>* После подтверждения запроса вы получите телеграм тег и место встречи.</i>`,
@@ -38,7 +47,7 @@ export async function menuAction(ctx: Context) {
 
 			if (!user || !profile) {
 				await ctx.reply(`${errEmoji} Пользователь/профиль не найдены`);
-				return menuMessage(ctx);
+				return menuAction(ctx);
 			}
 
 			return await ctx.sendMediaGroup(
@@ -51,6 +60,6 @@ export async function menuAction(ctx: Context) {
 			);
 		}
 	} catch (error) {
-		return menuMessage(ctx);
+		return menuMessage(ctx, isReply);
 	}
 }

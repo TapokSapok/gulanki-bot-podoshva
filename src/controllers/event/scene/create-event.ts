@@ -60,7 +60,7 @@ export const createEventScene = new Scenes.WizardScene<WizardContext>(
 		const eventExists = await getEventByUserIdWithNotModerated(user.id);
 		if (eventExists) {
 			await ctx.reply(`${errEmoji} У вас уже есть событие на модерации`);
-			return menuMessage(ctx, true);
+			return menuAction(ctx, true);
 		}
 
 		await messages.typeEventDescription(ctx);
@@ -89,6 +89,7 @@ export const createEventScene = new Scenes.WizardScene<WizardContext>(
 		return ctx.wizard.next();
 	}),
 	asyncWrapper(async ctx => {
+		if (ctx.callbackQuery) await ctx.answerCbQuery();
 		const text = ctx.text?.trim();
 		const callbackData = (ctx?.callbackQuery as CallbackQuery.DataQuery)?.data;
 
@@ -117,7 +118,9 @@ export const createEventScene = new Scenes.WizardScene<WizardContext>(
 			if (!day || !month) throw new ValidateError('Неверный формат даты');
 
 			date = new Date();
-			date = new Date(date.getFullYear(), month - 1, day);
+			date = new Date(date.getFullYear(), Math.floor(month) - 1, Math.floor(day));
+
+			if (date.getTime() < Date.now()) throw new ValidateError('Дата не может быть в прошлом');
 		}
 
 		(ctx.scene.state as any).date = date;
@@ -166,7 +169,7 @@ export const createEventScene = new Scenes.WizardScene<WizardContext>(
 		console.log(event);
 
 		await messages.eventCreated(ctx);
-		await menuMessage(ctx, true);
+		await menuAction(ctx, true);
 		return ctx.scene.leave();
 	})
 );

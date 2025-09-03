@@ -44,7 +44,7 @@ export async function eventRequestAction(ctx: Context) {
 	if (ctx.callbackQuery) await ctx.answerCbQuery();
 
 	const { event, user: eventUser } = await getEventById(ctx.args[1] as number);
-	if (!event || !eventUser) return await ctx.reply(`${errEmoji} Событие не найдены`);
+	if (!event || !eventUser) return await ctx.reply(`${errEmoji} Событие не найдено`);
 
 	const { user, profile } = await getUserByTgIdWithProfile(ctx.from!.id);
 	if (!user || !profile) return await ctx.reply(`${errEmoji} пользователь/профиль не найдены`);

@@ -4,7 +4,7 @@ import { UserType } from '../../db/schema/user';
 import { formatDate } from '../../utils';
 import dayjs from 'dayjs';
 
-export async function menuMessage(ctx: Context, isReply: boolean = false) {
+export async function menuMessage(ctx: Context, isReply = false) {
 	return ctx[ctx.callbackQuery && !isReply ? 'editMessageText' : 'reply']('👋 Добро пожаловать в бот гулянок!', {
 		reply_markup: {
 			inline_keyboard: [

@@ -2,8 +2,6 @@ import { Context } from 'telegraf';
 import { myProfileMessage } from './message';
 import { getUserByTgIdWithProfile } from '../../db/repository/user';
 import { FatalError } from '../../utils/errors';
-import { formatDate } from '../../utils';
-import dayjs from 'dayjs';
 
 export async function myProfileAction(ctx: Context) {
 	if (!ctx?.from?.id) throw new FatalError();

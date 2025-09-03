@@ -3,6 +3,9 @@ import { bot } from '../../bot';
 import asyncWrapper from '../../utils/async-wrapper';
 import { menuAction } from './action';
 
-bot.start(asyncWrapper(menuAction));
+bot.start(asyncWrapper(async ctx => await menuAction(ctx)));
 
-bot.action(/^menu/, asyncWrapper(menuAction));
+bot.action(
+	/^menu/,
+	asyncWrapper(async ctx => await menuAction(ctx))
+);

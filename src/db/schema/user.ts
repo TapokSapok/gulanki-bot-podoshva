@@ -2,6 +2,7 @@ import * as t from 'drizzle-orm/pg-core';
 
 export enum Role {
 	Admin = 'admin',
+	Moderator = 'moderator',
 	Default = 'default',
 }
 

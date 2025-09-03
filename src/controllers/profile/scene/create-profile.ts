@@ -113,7 +113,7 @@ export const createProfileScene = new Scenes.WizardScene<WizardContext>(
 		if (age < 16) return await errors.ageMoreThan(ctx, 16);
 		if (age > 80) return await errors.ageLessThan(ctx, 80);
 
-		(ctx.scene.state as any).age = age;
+		(ctx.scene.state as any).age = Math.floor(age);
 
 		const cities = await getAllCities();
 		if (!cities.length) throw new FatalError('Города не найдены', true, true);
